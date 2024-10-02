@@ -3,12 +3,11 @@ package dao;
 import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import utils.HibernateUtil;
 
 import java.util.List;
 
-public class EmployeeDAO {
+public class EmployeeDAOImpl {
 
     public void saveEmployee(Employee employee) {
         Transaction transaction = null;

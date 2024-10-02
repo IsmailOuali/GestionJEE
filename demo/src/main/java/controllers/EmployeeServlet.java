@@ -1,17 +1,21 @@
 package controllers;
 
-import dao.EmployeeDAO;
+import dao.EmployeeDAOImpl;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Employee;
+import service.EmployeeService;
 
 import java.io.IOException;
+import java.util.List;
 
 public class EmployeeServlet extends HttpServlet {
 
-    private EmployeeDAO employeeDAO = new EmployeeDAO();
+    private EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    private EmployeeService employeeService = new service.impl.EmployeeServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -27,7 +31,7 @@ public class EmployeeServlet extends HttpServlet {
 
             Employee employee = new Employee(name, email, phone, department, poste);
 
-            employeeDAO.saveEmployee(employee);
+            employeeService.addEmployee(employee);
 
             response.sendRedirect("addEmployee");
         } catch (Exception e) {
@@ -48,14 +52,12 @@ public class EmployeeServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.getWriter().println("<form action='addEmployee' method='POST'>");
-        response.getWriter().println("Name: <input type='text' name='name'/><br/>");
-        response.getWriter().println("Email: <input type='text' name='email'/><br/>");
-        response.getWriter().println("Phone: <input type='text' name='phone'/><br/>");
-        response.getWriter().println("Department: <input type='text' name='department'/><br/>");
-        response.getWriter().println("Position: <input type='text' name='position'/><br/>");
-        response.getWriter().println("<input type='submit' value='Add Employee'/>");
-        response.getWriter().println("</form>");
+        String action = request.getServletPath();
+
+        if ("/listEmployees".equals(action)) {
+            List<Employee> employees = employeeService.getAllEmployees();
+            request.setAttribute("employees", employees);
+            request.getRequestDispatcher("employees.jsp").forward(request, response);
+        }
     }
 }

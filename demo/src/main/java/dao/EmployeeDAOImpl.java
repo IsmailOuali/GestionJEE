@@ -23,6 +23,8 @@ public class EmployeeDAOImpl {
         }
     }
 
+
+
     public List<Employee> getAllEmployees() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Employee", Employee.class).list();

@@ -1,4 +1,4 @@
-package repository.impl;
+package repository;
 
 import models.Employee;
 import org.hibernate.Session;

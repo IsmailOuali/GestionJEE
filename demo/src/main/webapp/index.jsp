@@ -13,7 +13,7 @@
     Email: <input type="email" name="email"><br>
     Phone: <input type="text" name="phone"><br>
     Department: <input type="text" name="department"><br>
-    Position: <input type="text" name="poste"><br>
+    Poste: <input type="text" name="poste"><br>
     <input type="submit" value="Add Employee">
 </form>
 

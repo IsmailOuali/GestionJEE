@@ -58,7 +58,7 @@ public class EmployeeServlet extends HttpServlet {
 
             // Set the employee list as a request attribute
             request.setAttribute("employees", employees);
-
+            System.out.println(employees);
             // Forward to the employees.jsp page to display the list
             request.getRequestDispatcher("employees.jsp").forward(request, response);
         }
